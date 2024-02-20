@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CommonUtilService } from './services/common-util.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,14 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.less'
 })
 export class AppComponent {
-  title = 'angular-test-demo';
+  title!: string;
+
+  constructor(private commonUtilSrv: CommonUtilService) {
+
+    // Dummy GET call implementation
+    this.commonUtilSrv.getUserDetails().subscribe(res => {
+      console.log(res);
+      this.title = res[4].description;
+    });
+  }
 }
